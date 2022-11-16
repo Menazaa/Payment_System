@@ -4,8 +4,10 @@
 #ifndef CARD_H
 #define CARD_H
 
-#define CARDHOLDER_NAME_MAX_LENGTH	24
-#define CARDHOLDER_NAME_MIN_LENGTH	20
+#define CARDHOLDER_NAME_MAX_LENGTH		24
+#define CARDHOLDER_NAME_MIN_LENGTH		20
+#define CARD_Expire_DATE_LENGTH			5
+
 
 
 typedef unsigned char uint8_t;
