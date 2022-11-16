@@ -1,5 +1,5 @@
 #include "server.h"
-
+#include"../Card/card.h"
 #include <stdio.h>
 #include <string.h>
 //global variable for a found account in the database
