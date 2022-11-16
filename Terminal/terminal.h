@@ -1,4 +1,5 @@
 
+#include "../Card/card.h"
 
 
 #ifndef TERMINAL_H
