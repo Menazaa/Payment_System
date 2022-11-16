@@ -47,3 +47,16 @@ EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData) {
 	return CARD_OK;
 
 }
+
+
+EN_cardError_t getCardPAN(ST_cardData_t* cardData) {
+	printf("Enter your Primary Account Number: \n");
+	gets(cardData->primaryAccountNumber);
+	
+	if (strlen(cardData->primaryAccountNumber) > PAN_MAX_LENGTH || strlen(cardData->primaryAccountNumber) < PAN_MIN_LENGTH ||
+	 	cardData->primaryAccountNumber == NULL)
+		{
+			return WRONG_PAN;	
+		}
+	return CARD_OK;
+}

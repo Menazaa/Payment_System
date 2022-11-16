@@ -6,6 +6,8 @@
 
 #define CARDHOLDER_NAME_MAX_LENGTH		24
 #define CARDHOLDER_NAME_MIN_LENGTH		20
+#define PAN_MAX_LENGTH					19
+#define PAN_MIN_LENGTH					16
 #define CARD_Expire_DATE_LENGTH			5
 
 
