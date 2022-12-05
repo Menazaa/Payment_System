@@ -1,5 +1,4 @@
 
-
 #include "../Terminal/terminal.h"
 
 #ifndef SERVER_H
