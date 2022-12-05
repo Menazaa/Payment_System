@@ -2,6 +2,8 @@
 #include"../Card/card.h"
 #include <stdio.h>
 #include <string.h>
+
+
 //global variable for a found account in the database
 ST_accountsDB_t* foundAccount = NULL;
 //index of the found account
@@ -9,7 +11,7 @@ uint8_t indexFound;
 //the database
 ST_accountsDB_t dataBase[] =
 {
-        { 3000.00,RUNNING,"3456123567456789567"},
+        { 1500.00,RUNNING,"3456123567456789567"},
         {20000.00,RUNNING,"232345671234545671"},
         {9255.25,RUNNING,"561649578916341232",},
         {15070.1,BLOCKED,"451267832439342321"},
