@@ -8,14 +8,14 @@
 void appStart(void) {
 	
 	ST_cardData_t client = { "","","" };
-	ST_cardData_t* cptr = &client;
+	ST_cardData_t* clientptr = &client;
 	ST_terminalData_t terminal={0,0,""};
-	ST_terminalData_t* tptr = &terminal;
+	ST_terminalData_t* terminalptr = &terminal;
 
 	uint8_t flag= 1;
 	while (flag)
 	{
-		if (getCardHolderName(cptr) == WRONG_NAME) printf("Re-enter your name\n");
+		if (getCardHolderName(clientptr) == WRONG_NAME) printf("Re-enter your name\n");
 		else {
 			printf("SUCCESS!\n");
 			break;
@@ -23,7 +23,7 @@ void appStart(void) {
 	}
 	
 	while (flag) {
-		if (getCardExpiryDate(cptr) == WRONG_EXP_DATE) printf("Re-enter the date in a right formula\n");
+		if (getCardExpiryDate(clientptr) == WRONG_EXP_DATE) printf("Re-enter the date in a right formula\n");
 		else { printf("SUCCESS!\n");
 		break;
 		}
@@ -32,14 +32,14 @@ void appStart(void) {
 	
 
 	while(flag){
-		if (getCardPAN(cptr) == WRONG_PAN) printf("Enter a valid PAN\n");
+		if (getCardPAN(clientptr) == WRONG_PAN) printf("Enter a valid PAN\n");
 		else { printf("SUCCESS!\n");
 		break;
 		}
 
 	}
 	while (flag) {
-		if (getTransactionDate(tptr) == WRONG_DATE) printf("Re-enter a valid date\n");
+		if (getTransactionDate(terminalptr) == WRONG_DATE) printf("Re-enter a valid date\n");
 		else {
 			printf("SUCCESS!\n");
 			break;
@@ -53,16 +53,16 @@ void appStart(void) {
 		
 	}
 	else if (isExpired == TERMINAL_OK) {
-		uint8_t getTransaction = getTransactionAmount(tptr);
+		uint8_t getTransaction = getTransactionAmount(terminalptr);
 		if (getTransaction == TERMINAL_OK) {
-			uint8_t setMax = setMaxAmount(tptr);
+			uint8_t setMax = setMaxAmount(terminalptr);
 			if (setMax == TERMINAL_OK) {
-				if (isBelowMaxAmount(tptr) == TERMINAL_OK) {
+				if (isBelowMaxAmount(terminalptr) == TERMINAL_OK) {
 					printf("Valid amount less than the maximum!");
 					
 
 				}
-				else if (isBelowMaxAmount(tptr) == EXCEED_MAX_AMOUNT) {
+				else if (isBelowMaxAmount(terminalptr) == EXCEED_MAX_AMOUNT) {
 					printf("Transaction failed! you have exceeded the max amount");
 					exit(200);
 				}
