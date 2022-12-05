@@ -7,23 +7,6 @@
 
 typedef unsigned int uint32_t;
 
-EN_terminalError_t getTransactionDate(ST_terminalData_t* termData) {
-    printf("Please enter the transaction date:DD/MM/YY\n");
-    gets(termData->transactionDate);
-
-    uint8_t monthFirstDigit = termData->transactionDate[3] - '0';
-    uint8_t monthSecondDigit = termData->transactionDate[4] - '0';
-    uint8_t monthNumber = monthFirstDigit * 10 + monthSecondDigit;
-    
-    uint8_t dayFirstDigit = termData->transactionDate[0] - '0';
-    uint8_t daySecondDigit = termData->transactionDate[1] - '0';
-    uint8_t dayNumber = dayFirstDigit * 10 + daySecondDigit;
-    //checking if day is between 1 and 31 inclusive
-    if (strlen(termData->transactionDate) < 10 || termData->transactionDate == NULL|| termData->transactionDate[2]!='/'||
-        termData->transactionDate[5] != '/'|| !(monthNumber >= 1 && monthNumber <= 12)|| !(dayNumber >= 1 && dayNumber <= 31))
-        return WRONG_DATE;
-    return TERMINAL_OK;
-}
 EN_terminalError_t isCardExpired(ST_cardData_t cardData, ST_terminalData_t  termData) {
     //2 digits of the year
     //MM/YY
@@ -59,8 +42,17 @@ EN_terminalError_t isCardExpired(ST_cardData_t cardData, ST_terminalData_t  term
     else if (transmonth < expmonth)return TERMINAL_OK;
     else return TERMINAL_OK;
 }
+
+EN_terminalError_t setMaxAmount(ST_terminalData_t* termData) {
+    printf("Please set the max amount:\n");
+    scanf_s("%f", &termData->maxTransAmount);
+    if (termData->maxTransAmount <= 0)
+        return INVALID_MAX_AMOUNT;
+    return TERMINAL_OK;
+}
+
 EN_terminalError_t getTransactionAmount(ST_terminalData_t* termData) {
-    printf("Please enter the transacion amount:\n");
+    printf("Please enter the transaction amount:\n");
     scanf_s("%f", &termData->transAmount);
     if (termData->transAmount <= 0)
         return INVALID_AMOUNT;
@@ -71,10 +63,21 @@ EN_terminalError_t isBelowMaxAmount(ST_terminalData_t* termData) {
         return EXCEED_MAX_AMOUNT;
     return TERMINAL_OK;
 }
-EN_terminalError_t setMaxAmount(ST_terminalData_t* termData) {
-    printf("Please set the max amount:\n");
-    scanf_s("%f", &termData->maxTransAmount);
-    if (termData->maxTransAmount <= 0)
-        return INVALID_MAX_AMOUNT;
+
+EN_terminalError_t getTransactionDate(ST_terminalData_t* termData) {
+    printf("Please enter the transaction date:DD/MM/YY\n");
+    gets(termData->transactionDate);
+
+    uint8_t monthFirstDigit = termData->transactionDate[3] - '0';
+    uint8_t monthSecondDigit = termData->transactionDate[4] - '0';
+    uint8_t monthNumber = monthFirstDigit * 10 + monthSecondDigit;
+    
+    uint8_t dayFirstDigit = termData->transactionDate[0] - '0';
+    uint8_t daySecondDigit = termData->transactionDate[1] - '0';
+    uint8_t dayNumber = dayFirstDigit * 10 + daySecondDigit;
+    //checking if day is between 1 and 31 inclusive
+    if (strlen(termData->transactionDate) < 10 || termData->transactionDate == NULL|| termData->transactionDate[2]!='/'||
+        termData->transactionDate[5] != '/'|| !(monthNumber >= 1 && monthNumber <= 12)|| !(dayNumber >= 1 && dayNumber <= 31))
+        return WRONG_DATE;
     return TERMINAL_OK;
 }
