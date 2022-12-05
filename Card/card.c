@@ -31,14 +31,17 @@ EN_cardError_t getCardExpiryDate(ST_cardData_t* cardData) {
     uint8_t year;
 
 
-    memcpy( month_buf, &cardData->cardExpirationDate[0], 2 );
+    memcpy( month_buf, &(cardData->cardExpirationDate), 2 );
     sscanf(month_buf, "%d", &month);
-    memcpy( year_buf, &cardData->cardExpirationDate[3], 2 );
+    memcpy( year_buf, &(cardData->cardExpirationDate[3]), 2 );
     sscanf(year_buf, "%d", &year);
+    memcpy( month_buf, &(cardData->cardExpirationDate), 2 );
+    sscanf(month_buf, "%d", &month);
+ 
 
 
 
-	if (strlen(cardData->cardExpirationDate) > 5 || cardData->cardExpirationDate[2] !='/' ||
+	if (strlen(cardData->cardExpirationDate) > 6 || cardData->cardExpirationDate[2] !='/' ||
                 cardData->cardExpirationDate == NULL || !(month >= 1 && month <= 12) || (year<22))
             {
                 return WRONG_EXP_DATE;

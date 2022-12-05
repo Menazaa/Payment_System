@@ -1,21 +1,21 @@
 #include<stdio.h>
 #include <stdlib.h>
 
-#include "../Card/card.h"
-#include "../Terminal/terminal.h"
-#include "../Server/server.h"
+#include "../Card/card.c"
+#include "../Terminal/terminal.c"
+#include "../Server/server.c"
 
 void appStart(void) {
 	
-	ST_cardData_t customer1 = { "","","" };
-	ST_cardData_t* cptr = &customer1;
-	ST_terminalData_t terminal1={0,0,""};
-	ST_terminalData_t* tptr = &terminal1;
+	ST_cardData_t client = { "","","" };
+	ST_cardData_t* cptr = &client;
+	ST_terminalData_t terminal={0,0,""};
+	ST_terminalData_t* tptr = &terminal;
 
 	uint8_t flag= 1;
 	while (flag)
 	{
-		if (getCardHolderName(cptr) == WRONG_NAME) printf("Please re-enter your name\n");
+		if (getCardHolderName(cptr) == WRONG_NAME) printf("Re-enter your name\n");
 		else {
 			printf("SUCCESS!\n");
 			break;
@@ -23,7 +23,7 @@ void appStart(void) {
 	}
 	
 	while (flag) {
-		if (getCardExpiryDate(cptr) == WRONG_EXP_DATE) printf("Please re-enter the date in a right formula\n");
+		if (getCardExpiryDate(cptr) == WRONG_EXP_DATE) printf("Re-enter the date in a right formula\n");
 		else { printf("SUCCESS!\n");
 		break;
 		}
@@ -32,24 +32,24 @@ void appStart(void) {
 	
 
 	while(flag){
-		if (getCardPAN(cptr) == WRONG_PAN) printf("Please enter a valid PAN\n");
+		if (getCardPAN(cptr) == WRONG_PAN) printf("Enter a valid PAN\n");
 		else { printf("SUCCESS!\n");
 		break;
 		}
 
 	}
 	while (flag) {
-		if (getTransactionDate(tptr) == WRONG_DATE) printf("Please re-enter a valid date\n");
+		if (getTransactionDate(tptr) == WRONG_DATE) printf("Re-enter a valid date\n");
 		else {
 			printf("SUCCESS!\n");
 			break;
 		}
 
 	}
-	uint8_t isExpired= isCardExpired(customer1, terminal1);
+	uint8_t isExpired= isCardExpired(client, terminal);
 	if ( isExpired== EXPIRED_CARD) {
 		printf("YOUR CARD IS EXPIRED!");
-		exit();
+		exit(200);
 		
 	}
 	else if (isExpired == TERMINAL_OK) {
@@ -59,12 +59,12 @@ void appStart(void) {
 			if (setMax == TERMINAL_OK) {
 				if (isBelowMaxAmount(tptr) == TERMINAL_OK) {
 					printf("Valid amount less than the maximum!");
-					//getch();
+					
 
 				}
 				else if (isBelowMaxAmount(tptr) == EXCEED_MAX_AMOUNT) {
 					printf("Transaction failed! you have exceeded the max amount");
-					exit();
+					exit(200);
 				}
 			}
 			else if (setMax == INVALID_MAX_AMOUNT) {
@@ -78,23 +78,23 @@ void appStart(void) {
 	}
 	
 	//creating the transaction
-	ST_transaction_t transaction = {customer1,terminal1,APPROVED ,23};
-	ST_transaction_t* transptr = &transaction;
+	ST_transaction_t transaction = {client ,terminal,APPROVED ,23};
+	ST_transaction_t* transactionptr = &transaction;
 
-	uint8_t validityOfTransaction= recieveTransactionData(transptr);
+	uint8_t validityOfTransaction= recieveTransactionData(transactionptr);
 	
 	if (validityOfTransaction == APPROVED) {
-		printf("\nTransaction success:ENOUGH BALANCE!\n");
+		printf("Transaction success\n");
 	}
 	else if (validityOfTransaction == DECLINED_INSUFFECIENT_FUND)
 	{
-		printf("\nTransaction failed:LOW BALANCE!");
+		printf("LOW BALANCE!");
 	}
 	else if (validityOfTransaction ==DECLINED_STOLEN_CARD) {
-		printf("%s", "your account is Blocked");
+		printf("your account is Blocked\n");
 	}
 	else if (validityOfTransaction == FRAUD_CARD) {
-		printf("\n%s", "Account is not Valid!");
+		printf("Account is not Valid!\n");
 
 	}
 	

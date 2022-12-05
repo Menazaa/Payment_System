@@ -20,7 +20,7 @@ ST_accountsDB_t dataBase[] =
         {0.00, RUNNING ,"97136248657454747435"},
         {1.00,  RUNNING,"793345353414854625" },
         { 50.1, RUNNING,"123123459067545466"},
-        { 0.63, BLOCKED,"455435367898765433"},
+        { 0.63, BLOCKED,"453435367898765433"},
 };
 //index of the found account
 uint8_t indexFound;
@@ -101,6 +101,16 @@ EN_serverError_t isAmountAvailable(ST_transaction_t* termData, ST_accountsDB_t* 
         return SERVER_OK;
     }
 }
+
+EN_serverError_t getTransaction(uint32_t transactionSequenceNumber, ST_transaction_t* transData) {
+    if (transactionSequenceNumber == transData->transactionSequenceNumber) {
+        return SERVER_OK;
+    }
+    else {
+        return TRANSACTION_NOT_FOUND;
+    }
+}
+
 uint8_t lastTransactionNum = 0;
 EN_serverError_t saveTransaction(ST_transaction_t* transData) {
     transactions[lastTransactionNum].cardHolderData = transData->cardHolderData;
@@ -119,13 +129,5 @@ EN_serverError_t saveTransaction(ST_transaction_t* transData) {
     else
     {
        return SAVING_FAILED;
-    }
-}
-EN_serverError_t getTransaction(uint32_t transactionSequenceNumber, ST_transaction_t* transData) {
-    if (transactionSequenceNumber == transData->transactionSequenceNumber) {
-        return SERVER_OK;
-    }
-    else {
-        return TRANSACTION_NOT_FOUND;
     }
 }
