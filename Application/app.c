@@ -1,8 +1,9 @@
 #include<stdio.h>
 
-#include"../Card/card.h"
-#include"../terminal/terminal.h"
-#include "../server/server.h"
+#include "../Card/card.h"
+#include "../Terminal/terminal.h"
+#include "../Server/server.h"
+
 void appStart(void) {
 	
 	ST_cardData_t customer1 = { "","","" };
