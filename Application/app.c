@@ -1,9 +1,10 @@
-#include<stdio.h>
-#include <stdlib.h>
-
 #include "../Card/card.c"
 #include "../Terminal/terminal.c"
 #include "../Server/server.c"
+
+#include <stdlib.h>
+#include<stdio.h>
+
 
 void appStart(void) {
 	
@@ -47,7 +48,7 @@ void appStart(void) {
 
 	}
 	uint8_t isExpired= isCardExpired(client, terminal);
-	if ( isExpired== EXPIRED_CARD) {
+	if ( EXPIRED_CARD == isExpired ) {
 		printf("YOUR CARD IS EXPIRED!");
 		exit(200);
 		
